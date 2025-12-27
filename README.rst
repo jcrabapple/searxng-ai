@@ -29,6 +29,45 @@ Key enhancements:
 - 🎨 **Seamless Integration**: Clean UI that fits naturally into the SearXNG experience
 - 🔧 **User Control**: Enable/disable through preferences
 
+Privacy-Respecting LLM Options
+-------------------------------
+
+For maximum privacy, we recommend using **Trusted Execution Environment (TEE)** models or self-hosted solutions:
+
+**TEE-Based Providers (Recommended for Privacy)**
+
+- **Dstack.ai** - TEE-secured inference with verifiable privacy guarantees
+- **Phala Network** - Confidential AI powered by TEE technology
+- **Secret Network** - Privacy-first blockchain-based AI inference
+- **Oasis Network** - Confidential computing for AI workloads
+
+These providers use hardware-based TEEs (like Intel SGX or AMD SEV) to ensure your data is encrypted even during processing, with cryptographic proof that your queries are never logged or accessed.
+
+**Self-Hosted Options**
+
+- **Ollama** (https://ollama.ai) - Run models locally (Llama, Mistral, etc.)
+- **LocalAI** (https://localai.io) - OpenAI-compatible API for local models
+- **LM Studio** - Desktop app for running LLMs locally
+- **vLLM** - High-performance local inference server
+
+**Privacy-Focused Cloud Providers**
+
+- **Mistral AI** - European provider with strong privacy commitments
+- **Anthropic (Claude)** - Does not train on user data
+- **Together.ai** - Open models with privacy options
+
+**Configuration Example**
+
+To use a TEE or local provider, configure in your preferences::
+
+    Quick Summary Settings:
+    - Enable Quick Summary: Yes
+    - API Base URL: https://your-tee-provider.com/v1 (or http://localhost:11434/v1 for Ollama)
+    - API Key: your-key (not needed for local models)
+    - Model: llama3.2 (or your preferred model)
+
+For complete privacy, self-hosted solutions ensure your search queries never leave your infrastructure.
+
 .. image:: https://img.shields.io/badge/organization-3050ff?style=flat-square&logo=searxng&logoColor=fff&cacheSeconds=86400
    :target: https://github.com/searxng
    :alt: Organization
