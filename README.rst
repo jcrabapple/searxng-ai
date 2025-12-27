@@ -21,6 +21,8 @@ This fork includes the **Quick Summary** feature - AI-powered intelligent summar
 
 **Quick Summary** leverages OpenAI-compatible APIs to generate concise, relevant summaries from your top search results, helping you find information faster without compromising privacy.
 
+Customize the summary prompt in `quick_summary.py`.
+
 Key enhancements:
 
 - 🤖 **AI-Powered Summaries**: Get instant summaries of search results
