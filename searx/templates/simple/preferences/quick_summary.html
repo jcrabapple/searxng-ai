@@ -70,14 +70,56 @@
     <label for="pref_quick_summary_prompt">{{ _('Custom Summary Prompt') }}</label>{{- '' -}}
     <textarea {{- ' ' -}}
            id="pref_quick_summary_prompt" {{- ' ' -}}
-           name="quick_summary_prompt" {{- ' ' -}}
            aria-labelledby="pref_quick_summary_settings" {{- ' ' -}}
            rows="10" {{- ' ' -}}
-           maxlength="2000" {{- ' ' -}}
+           maxlength="5000" {{- ' ' -}}
            placeholder="{{ _('Leave empty to use default prompt. Use {query} for the search query and {results_text} for the formatted results.') }}"{{- '' -}}
-    >{{ preferences.get_value('quick_summary_prompt') or '' }}</textarea>{{- '' -}}
+    ></textarea>{{- '' -}}
+    <input type="hidden" name="quick_summary_prompt" id="quick_summary_prompt_hidden" value="">
   </div>{{- '' -}}
   <div class="description">
-    {{- _('Customize the prompt template for generating summaries. Available placeholders: {query}, {results_text}. Maximum 2000 characters.') -}}
+    {{- _('Customize the prompt template for generating summaries. Available placeholders: {query}, {results_text}. Stored locally in your browser.') -}}
   </div>{{- '' -}}
 </fieldset>{{- '' -}}
+
+<script>
+(function() {
+  'use strict';
+  
+  var textarea = document.getElementById('pref_quick_summary_prompt');
+  var hiddenInput = document.getElementById('quick_summary_prompt_hidden');
+  var STORAGE_KEY = 'searxng_ai_custom_prompt';
+  
+  function loadPrompt() {
+    try {
+      var stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        textarea.value = stored;
+      }
+    } catch (e) {
+      console.warn('Could not load prompt from localStorage:', e);
+    }
+  }
+  
+  function savePrompt() {
+    try {
+      localStorage.setItem(STORAGE_KEY, textarea.value);
+    } catch (e) {
+      console.warn('Could not save prompt to localStorage:', e);
+    }
+  }
+  
+  function updateHiddenField() {
+    hiddenInput.value = textarea.value;
+  }
+  
+  loadPrompt();
+  
+  textarea.addEventListener('input', function() {
+    savePrompt();
+    updateHiddenField();
+  });
+  
+  updateHiddenField();
+})();
+</script>

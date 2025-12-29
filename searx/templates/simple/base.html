@@ -26,6 +26,28 @@
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" sizes="any">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+  <script>
+  (function() {
+    'use strict';
+    var STORAGE_KEY = 'searxng_ai_custom_prompt';
+    var originalFetch = window.fetch;
+    window.fetch = function(input, init) {
+      if (typeof input === 'string' && input.includes('/quick_summary')) {
+        try {
+          var customPrompt = localStorage.getItem(STORAGE_KEY) || '';
+          if (customPrompt && init && init.body) {
+            var body = JSON.parse(init.body);
+            body.custom_prompt = customPrompt;
+            init.body = JSON.stringify(body);
+          }
+        } catch (e) {
+          console.warn('Could not add custom prompt to request:', e);
+        }
+      }
+      return originalFetch.apply(this, arguments);
+    };
+  })();
+  </script>
 </head>
 <body class="{{ endpoint }}_endpoint" >
   <main id="main_{{  self._TemplateReference__context.name|replace("simple/", "")|replace(".html", "") }}" class="{{body_class}}">

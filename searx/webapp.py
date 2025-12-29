@@ -884,6 +884,7 @@ def quick_summary_endpoint():
 
     query = data.get('q', '').strip()
     results_data = data.get('results', [])
+    custom_prompt = data.get('custom_prompt', '') or sxng_request.preferences.get_value('quick_summary_prompt') or ''
 
     # Validate quick summary is enabled
     if not sxng_request.preferences.get_value('quick_summary_enabled'):
@@ -923,7 +924,7 @@ def quick_summary_endpoint():
                 api_config=api_config,
                 max_results=max_results,
                 use_cache=True,
-                custom_prompt=sxng_request.preferences.get_value('quick_summary_prompt') or ''
+                custom_prompt=custom_prompt
             )
         )
         loop.close()
